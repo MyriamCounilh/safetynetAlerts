@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SafetynetAlertsApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SafetynetAlertsApplication.class, args);
     }
+
 
 }

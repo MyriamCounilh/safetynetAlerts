@@ -2,19 +2,12 @@ package com.myriamcounilh.safetynetalerts.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Map;
 
 public class JsonReaderService {
 
-
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
         JsonReaderService app = new JsonReaderService();
 
         String fileName = "data.json";
@@ -25,7 +18,7 @@ public class JsonReaderService {
         app.fileJson(url);
     }
 
-    private URL getFileFromResource(String fileName) throws URISyntaxException {
+    private URL getFileFromResource(String fileName) {
 
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(fileName);
@@ -33,19 +26,6 @@ public class JsonReaderService {
             throw new IllegalArgumentException("file not found! " + fileName);
         } else {
             return resource;
-        }
-
-    }
-
-    private static void printFile(File file) {
-
-        List<String> lines;
-        try {
-            lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
-            lines.forEach(System.out::println) ;
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
@@ -67,5 +47,4 @@ public class JsonReaderService {
             ex.printStackTrace();
         }
    }
-
  }

@@ -1,22 +1,22 @@
 package com.myriamcounilh.safetynetalerts.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.net.URL;
 import java.util.Map;
 
+@Service
 public class JsonReaderService {
 
-    public static void main(String[] args) {
-        JsonReaderService app = new JsonReaderService();
-
+    public JsonReaderService() {
         String fileName = "data.json";
 
         System.out.println("getResource : " + fileName);
-        URL url = app.getFileFromResource(fileName);
-
-        app.fileJson(url);
+        URL url = getFileFromResource(fileName);
+        fileJson(url);
     }
+
 
     private URL getFileFromResource(String fileName) {
 

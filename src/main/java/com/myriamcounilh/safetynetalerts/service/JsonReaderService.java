@@ -1,50 +1,31 @@
 package com.myriamcounilh.safetynetalerts.service;
 
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
-import java.net.URL;
-import java.util.Map;
+import java.io.IOException;
 
 @Service
 public class JsonReaderService {
 
-    public JsonReaderService() {
-        String fileName = "data.json";
+    private final static String PATH_TO_JSON_FILE = "data.json";
 
-        System.out.println("getResource : " + fileName);
-        URL url = getFileFromResource(fileName);
-        fileJson(url);
+    public JsonReaderService() throws IOException {
+
+        // create object mapper instance
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(JsonReaderService.class.getClassLoader().getResourceAsStream(PATH_TO_JSON_FILE));
+
+        System.out.println(node);
+
+        /**
+         * TODO
+         * loadPersons(node, mapper);
+         * loadMedicalRecord();
+         * loadFirstation();
+         */
     }
 
-
-    private URL getFileFromResource(String fileName) {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("file not found! " + fileName);
-        } else {
-            return resource;
-        }
-
-    }
-
-    void fileJson(URL url) {
-        try {
-            // create object mapper instance
-            ObjectMapper mapper = new ObjectMapper();
-
-            // convert JSON file to map
-            Map<?, ?> map = mapper.readValue(url, Map.class);
-
-            // print map entries
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + "=" + entry.getValue());
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-   }
- }
+}

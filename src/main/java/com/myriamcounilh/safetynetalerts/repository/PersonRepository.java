@@ -16,4 +16,8 @@ public class PersonRepository {
         return person;
     }
 
+    public List<Person> getPerson() {
+        return listPerson;
+    }
+
 }

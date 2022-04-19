@@ -12,4 +12,9 @@ Service : implémentation des traitements métiers spécifiques à l’applicati
 Repository : interaction avec les sources de données externes.
 
 - Couverture de code avec JaCoco
+- Utilisation de surefire report pour mes tests
+
+### Commande
+- mvn site = pour lancer mon rapport de test (Jacoco et surefire report)
+- mvn spring-boot:run = afin de lancer l'application
 

@@ -5,6 +5,8 @@ import com.myriamcounilh.safetynetalerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class PersonService {
@@ -13,8 +15,11 @@ public class PersonService {
     private PersonRepository repository;
 
     public void addPerson(Person person) {
-
         repository.addPerson(person);
+    }
+
+    public List<Person> getPerson() {
+        return repository.getPerson();
     }
 
 

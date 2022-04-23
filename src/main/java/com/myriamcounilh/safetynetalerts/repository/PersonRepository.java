@@ -11,7 +11,14 @@ public class PersonRepository {
 
     private List<Person> listPerson = new ArrayList<>();
 
+
     public Person addPerson(Person person) {
+
+        for (Person p : listPerson) {
+            if (p.equals(person)) {
+                return null;
+            }
+        }
         this.listPerson.add(person);
         return person;
     }
@@ -20,4 +27,20 @@ public class PersonRepository {
         return listPerson;
     }
 
+    public Person modifyPerson(String firstName, String lastName, Person person) {
+        Person personFound = null;
+        for (Person p : listPerson) {
+            if (p.getFirstName().equals(firstName) && p.getLastName().equals(lastName)) {
+                personFound = p;
+                break;
+            }
+        }
+        if (personFound == null) {
+            return null;
+        }
+        listPerson.remove(personFound);
+        listPerson.add(person);
+
+        return person;
+    }
 }

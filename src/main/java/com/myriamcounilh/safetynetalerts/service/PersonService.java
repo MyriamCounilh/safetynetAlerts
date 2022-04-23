@@ -14,13 +14,30 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
-    public void addPerson(Person person) {
-        repository.addPerson(person);
+    /**
+     * Post
+     * @param person
+     */
+    public Person addPerson(Person person) {
+        return repository.addPerson(person);
     }
 
+    /**
+     * Get
+     * @return
+     */
     public List<Person> getPerson() {
         return repository.getPerson();
     }
+
+    /**
+     * PUT
+     */
+    public Person modifyPerson(String firstName, String lastName,Person person) {
+
+       return repository.modifyPerson(firstName, lastName, person);
+    }
+
 
 
 }

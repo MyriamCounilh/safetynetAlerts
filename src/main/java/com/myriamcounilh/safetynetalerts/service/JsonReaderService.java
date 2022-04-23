@@ -14,20 +14,24 @@ import java.io.IOException;
 public class JsonReaderService {
 
     private final PersonService personService;
-    private final FirestationService firestationService;
 
     private final static String PATH_TO_JSON_FILE = "data.json";
 
-    public JsonReaderService(@Autowired PersonService personService, @Autowired FirestationService firestationService) throws IOException {
+    public JsonReaderService(@Autowired PersonService personService) throws IOException {
         this.personService = personService;
-        this.firestationService = firestationService;
 
-        // create object mapper instance
+        /**
+         * create object mapper instance
+         */
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(JsonReaderService.class.getClassLoader().getResourceAsStream(PATH_TO_JSON_FILE));
         loadPersons(node, mapper);
-        //loadMedicalRecord();
-        //loadFirstation();
+
+        /**
+         * TODO
+         * loadMedicalRecord();
+         * loadFirstation();
+         */
     }
 
     private void loadPersons(JsonNode nodeParent, ObjectMapper mapper) throws JsonProcessingException {
@@ -38,16 +42,4 @@ public class JsonReaderService {
             personService.addPerson(person);
         }
     }
-
-// private JsonNode getFileFromResource() {
-//
-//        ClassLoader classLoader = getClass().getClassLoader();
-//        if (JsonNode == null) {
-//            throw new IllegalArgumentException("file not found! " + PATH_TO_JSON_FILE);
-//        } else {
-//            return resource;
-//        }
-//
-//    }
-
 }

@@ -13,11 +13,11 @@ import java.io.IOException;
 @Service
 public class JsonReaderService {
 
-    private final PersonService personService;
+    private final IPersonService personService;
 
     private final static String PATH_TO_JSON_FILE = "data.json";
 
-    public JsonReaderService(@Autowired PersonService personService) throws IOException {
+    public JsonReaderService(@Autowired IPersonService personService) throws IOException {
         this.personService = personService;
 
         /**
@@ -36,8 +36,7 @@ public class JsonReaderService {
 
     private void loadPersons(JsonNode nodeParent, ObjectMapper mapper) throws JsonProcessingException {
         JsonNode nodePersons = nodeParent.get("persons");
-        for (int n = 0; n < nodePersons.size(); n++) {
-            JsonNode nodePerson = nodePersons.get(n);
+        for (JsonNode nodePerson : nodePersons) {
             Person person = mapper.readValue(nodePerson.toString(), Person.class);
             personService.addPerson(person);
         }

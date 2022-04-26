@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController {
 
-    private static final Logger logger = LogManager.getLogger("PersonController");
+    private static final Logger logger = LogManager.getLogger(PersonController.class);
 
     private final IPersonService personService;
 

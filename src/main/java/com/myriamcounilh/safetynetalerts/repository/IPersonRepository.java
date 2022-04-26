@@ -5,6 +5,7 @@ import com.myriamcounilh.safetynetalerts.model.Person;
 import java.util.List;
 
 public interface IPersonRepository {
+
     Person getPerson(String firstName, String lastName);
 
     Person getPerson(Person person);

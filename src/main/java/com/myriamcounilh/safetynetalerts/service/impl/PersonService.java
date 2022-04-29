@@ -46,7 +46,7 @@ public class PersonService implements IPersonService {
         if (personFound == null) {
             return null;
         }
-       return repository.modifyPerson(personFound, person);
+        return repository.modifyPerson(personFound, person);
     }
 
     /**

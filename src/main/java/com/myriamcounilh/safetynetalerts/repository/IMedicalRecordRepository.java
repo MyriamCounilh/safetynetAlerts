@@ -10,9 +10,9 @@ public interface IMedicalRecordRepository {
 
     MedicalRecord getMedicalRecord(MedicalRecord medicalRecord);
 
-    MedicalRecord addMedicalRecord(MedicalRecord medicalRecord);
-
     List<MedicalRecord> getMedicalRecord();
+
+    MedicalRecord addMedicalRecord(MedicalRecord medicalRecord);
 
     MedicalRecord modifyMedicalRecord(MedicalRecord medicalRecordFound, MedicalRecord medicalRecord);
 

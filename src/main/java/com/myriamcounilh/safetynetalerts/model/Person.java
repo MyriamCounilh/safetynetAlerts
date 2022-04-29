@@ -23,6 +23,15 @@ public class Person {
     @Email(message = "incorret email")
     private String email;
 
+    public Person() {
+
+    }
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }

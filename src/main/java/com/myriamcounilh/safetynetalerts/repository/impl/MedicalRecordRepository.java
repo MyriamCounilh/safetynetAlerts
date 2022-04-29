@@ -15,7 +15,9 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
 
     @Override
     public MedicalRecord getMedicalRecord(String firstName, String lastName) {
-        Optional<MedicalRecord> medicalRecordOptional = listMedicalRecord.stream().filter(mr -> mr.getFirstName().equals(firstName) && mr.getLastName().equals(lastName)).findFirst();
+        Optional<MedicalRecord> medicalRecordOptional = listMedicalRecord.stream().filter(mr ->
+                mr.getFirstName().equals(firstName) &&
+                mr.getLastName().equals(lastName)).findFirst();
         return medicalRecordOptional.orElse(null);
     }
 

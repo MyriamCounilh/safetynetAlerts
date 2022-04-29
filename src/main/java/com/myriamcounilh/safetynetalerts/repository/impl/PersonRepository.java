@@ -15,7 +15,9 @@ public class PersonRepository implements IPersonRepository {
 
     @Override
     public Person getPerson(String firstName, String lastName) {
-        Optional<Person> personOptional = listPerson.stream().filter(p -> p.getFirstName().equals(firstName) && p.getLastName().equals(lastName)).findFirst();
+        Optional<Person> personOptional = listPerson.stream().filter(person ->
+                person.getFirstName().equals(firstName) &&
+                person.getLastName().equals(lastName)).findFirst();
         return personOptional.orElse(null);
     }
 

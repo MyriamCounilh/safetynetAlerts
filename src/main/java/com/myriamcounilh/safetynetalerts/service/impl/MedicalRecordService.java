@@ -3,6 +3,8 @@ package com.myriamcounilh.safetynetalerts.service.impl;
 import com.myriamcounilh.safetynetalerts.model.MedicalRecord;
 import com.myriamcounilh.safetynetalerts.repository.IMedicalRecordRepository;
 import com.myriamcounilh.safetynetalerts.service.IMedicalRecordService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
+
+    private static final Logger logger = LogManager.getLogger(MedicalRecordService.class);
 
     private final IMedicalRecordRepository repository;
 
@@ -23,6 +27,7 @@ public class MedicalRecordService implements IMedicalRecordService {
      */
      @Override
      public List<MedicalRecord> getMedicalRecord() {
+         logger.debug("Not Return getMedicalRecord with List");
             return repository.getMedicalRecord();
      }
 
@@ -34,6 +39,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (repository.getMedicalRecord(medicalRecord) != null) {
             return null;
         }
+        logger.debug("Not Return addMedicalRecord");
         return repository.addMedicalRecord(medicalRecord);
     }
 
@@ -46,6 +52,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (medicalRecordFound == null) {
             return null;
         }
+        logger.debug("Not Return modifyMedicalRecord with station and address");
         return repository.modifyMedicalRecord(medicalRecordFound, medicalRecord);
     }
 
@@ -58,6 +65,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (medicalRecordFound == null) {
             return null;
         }
+        logger.debug("Not Return deleteMedicalRecord with firstName and lastName");
         return repository.deleteMedicalRecord(medicalRecordFound);
     }
 

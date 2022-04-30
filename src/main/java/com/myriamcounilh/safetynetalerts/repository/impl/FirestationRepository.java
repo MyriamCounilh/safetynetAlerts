@@ -1,13 +1,18 @@
 package com.myriamcounilh.safetynetalerts.repository.impl;
 
+import com.myriamcounilh.safetynetalerts.endpoint.FirestationController;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.repository.IFirestationRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
 public class FirestationRepository implements IFirestationRepository {
+
+    private static final Logger logger = LogManager.getLogger(FirestationRepository.class);
 
     private final Map<Integer, List<String>> firestationMap = new HashMap<>();
 
@@ -18,12 +23,13 @@ public class FirestationRepository implements IFirestationRepository {
         if (firestationList == null || !firestationList.contains(address)) {
             return null;
         }
-
+        logger.debug("Return firestationList with station and address");
         return new Firestation(station, address);
     }
 
     @Override
     public Firestation getFirestation(Firestation firestation) {
+        logger.debug("Not Return getFirestation with getStation() and getAddress()");
         return getFirestation(firestation.getStation(), firestation.getAddress());
     }
 
@@ -37,6 +43,7 @@ public class FirestationRepository implements IFirestationRepository {
         }
         listStation.add(firestation.getAddress());
         this.firestationMap.put(firestation.getStation(), listStation);
+        logger.debug("Not Return addFirestation");
         return firestation;
     }
 
@@ -53,6 +60,7 @@ public class FirestationRepository implements IFirestationRepository {
         }
         firestationList.remove(firestationFound.getAddress());
         firestationList.add(firestation.getAddress());
+        logger.debug("Not Return modifyFirestation");
         return firestation;
     }
 
@@ -63,6 +71,7 @@ public class FirestationRepository implements IFirestationRepository {
             return null;
         }
         firestationList.remove(firestationFound.getAddress());
+        logger.debug("Not Return firestationFound with deleteFirestation");
         return firestationFound;
     }
 

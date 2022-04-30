@@ -1,8 +1,11 @@
 package com.myriamcounilh.safetynetalerts.service.impl;
 
+import com.myriamcounilh.safetynetalerts.endpoint.FirestationController;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.repository.IFirestationRepository;
 import com.myriamcounilh.safetynetalerts.service.IFirestationService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,8 @@ import java.util.Map;
 
 @Service
 public class FirestationService implements IFirestationService {
+
+    private static final Logger logger = LogManager.getLogger(FirestationService.class);
 
     private final IFirestationRepository repository;
 
@@ -26,6 +31,7 @@ public class FirestationService implements IFirestationService {
         if(repository.getFirestation(firestation) != null) {
             return null;
         }
+        logger.debug("Not Return addFirestation");
         return repository.addFirestation(firestation);
     }
 
@@ -34,6 +40,7 @@ public class FirestationService implements IFirestationService {
      */
     @Override
     public Map<Integer, List<String>> getFirestation() {
+        logger.debug("Not Return getFirestation with Map");
         return repository.getFirestation();
     }
 
@@ -46,6 +53,7 @@ public class FirestationService implements IFirestationService {
         if (firestationFound == null) {
             return null;
         }
+        logger.debug("Not Return modifyFirestation with station and address");
         return repository.modifyFirestation(firestationFound, firestation);
     }
 
@@ -58,6 +66,7 @@ public class FirestationService implements IFirestationService {
         if (firestationFound == null) {
             return null;
         }
+        logger.debug("Not Return deleteFirestation with firestationFound");
         return repository.deleteFirestation(firestationFound);
     }
 

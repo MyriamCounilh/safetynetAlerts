@@ -10,6 +10,7 @@ class MedicalRecordServiceTest {
 
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach
@@ -22,6 +23,7 @@ class MedicalRecordServiceTest {
 
     @Test
     void addMedicalRecord() {
+
     }
 
     @Test

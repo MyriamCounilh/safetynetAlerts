@@ -22,41 +22,45 @@ public class PersonRepository implements IPersonRepository {
         Optional<Person> personOptional = listPerson.stream().filter(person ->
                 person.getFirstName().equals(firstName) &&
                 person.getLastName().equals(lastName)).findFirst();
-        logger.debug("Not Return Person with firstName and lastName");
+        logger.debug("Return Person with firstName and lastName");
         return personOptional.orElse(null);
     }
 
     @Override
     public Person getPerson(Person person) {
-        logger.debug("Not Return Person with getFirstName() and getLastName()");
+        logger.debug("Return Person with getFirstName() and getLastName()");
         return getPerson(person.getFirstName(), person.getLastName());
     }
 
     @Override
     public Person addPerson(Person person) {
         this.listPerson.add(person);
-        logger.debug("Not Return addPerson");
+        logger.debug("Return addPerson");
         return person;
     }
 
     @Override
     public List<Person> getPerson() {
-        logger.debug("Not Return getPerson with listPerson");
+        logger.debug("Return getPerson with listPerson");
         return listPerson;
     }
 
     @Override
     public Person modifyPerson(Person personFound, Person person) {
-        this.listPerson.remove(personFound);
-        this.listPerson.add(person);
-        logger.debug("Not Return modifyPerson");
-        return person;
+        if (this.listPerson.remove(personFound)) {
+            this.listPerson.add(person);
+            logger.debug("Return modifyPerson");
+            return person;
+        }
+        return null;
     }
 
     @Override
     public Person deletePerson(Person personFound) {
-        this.listPerson.remove(personFound);
-        logger.debug("Not Return deletePerson with personFound");
-        return personFound;
+        if (this.listPerson.remove(personFound)) {
+            logger.debug("Return deletePerson with personFound");
+            return personFound;
+        }
+        return null;
     }
 }

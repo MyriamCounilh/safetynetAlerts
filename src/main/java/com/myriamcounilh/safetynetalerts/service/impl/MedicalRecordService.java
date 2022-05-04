@@ -27,7 +27,7 @@ public class MedicalRecordService implements IMedicalRecordService {
      */
      @Override
      public List<MedicalRecord> getMedicalRecord() {
-         logger.debug("Not Return getMedicalRecord with List");
+         logger.debug("Return getMedicalRecord with List");
             return repository.getMedicalRecord();
      }
 
@@ -39,7 +39,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (repository.getMedicalRecord(medicalRecord) != null) {
             return null;
         }
-        logger.debug("Not Return addMedicalRecord");
+        logger.debug("Return addMedicalRecord");
         return repository.addMedicalRecord(medicalRecord);
     }
 
@@ -52,7 +52,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (medicalRecordFound == null) {
             return null;
         }
-        logger.debug("Not Return modifyMedicalRecord with station and address");
+        logger.debug("Return modifyMedicalRecord with station and address");
         return repository.modifyMedicalRecord(medicalRecordFound, medicalRecord);
     }
 
@@ -65,7 +65,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         if (medicalRecordFound == null) {
             return null;
         }
-        logger.debug("Not Return deleteMedicalRecord with firstName and lastName");
+        logger.debug("Return deleteMedicalRecord with firstName and lastName");
         return repository.deleteMedicalRecord(medicalRecordFound);
     }
 

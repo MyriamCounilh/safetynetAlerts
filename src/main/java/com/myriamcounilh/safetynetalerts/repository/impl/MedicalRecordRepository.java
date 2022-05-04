@@ -22,42 +22,46 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         Optional<MedicalRecord> medicalRecordOptional = listMedicalRecord.stream().filter(mr ->
                 mr.getFirstName().equals(firstName) &&
                 mr.getLastName().equals(lastName)).findFirst();
-        logger.debug("Not Return MedicalRecord with firstName and lastName");
+        logger.debug("Return MedicalRecord with firstName and lastName");
         return medicalRecordOptional.orElse(null);
     }
 
     @Override
     public MedicalRecord getMedicalRecord(MedicalRecord medicalRecord) {
-        logger.debug("Not Return MedicalRecord with getFirstName() and getLastName()");
+        logger.debug("Return MedicalRecord with getFirstName() and getLastName()");
         return getMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName());
     }
 
     @Override
     public MedicalRecord addMedicalRecord(MedicalRecord medicalRecord) {
         this.listMedicalRecord.add(medicalRecord);
-        logger.debug("Not Return addMedicalRecord");
+        logger.debug("Return addMedicalRecord");
         return medicalRecord;
     }
 
     @Override
     public List<MedicalRecord> getMedicalRecord() {
-        logger.debug("Not Return List<MedicalRecord> for getMedicalRecord");
+        logger.debug("Return List<MedicalRecord> for getMedicalRecord");
         return listMedicalRecord;
     }
 
     @Override
     public MedicalRecord modifyMedicalRecord(MedicalRecord medicalRecordFound, MedicalRecord medicalRecord) {
-        this.listMedicalRecord.remove(medicalRecordFound);
-        this.listMedicalRecord.add(medicalRecord);
-        logger.debug("Not Return modifyMedicalRecord");
-        return medicalRecord;
+        if (this.listMedicalRecord.remove(medicalRecordFound)) {
+            this.listMedicalRecord.add(medicalRecord);
+            logger.debug("Return modifyMedicalRecord");
+            return medicalRecord;
+        }
+        return null;
     }
 
     @Override
     public MedicalRecord deleteMedicalRecord(MedicalRecord medicalRecordFound) {
-        this.listMedicalRecord.remove(medicalRecordFound);
-        logger.debug("Not Return deleteMedicalRecord with medicalRecordFound");
-        return medicalRecordFound;
+        if (this.listMedicalRecord.remove(medicalRecordFound)) {
+            logger.debug("Return deleteMedicalRecord with medicalRecordFound");
+            return medicalRecordFound;
+        }
+        return null;
     }
 
 }

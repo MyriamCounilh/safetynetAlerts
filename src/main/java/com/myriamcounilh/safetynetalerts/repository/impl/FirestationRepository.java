@@ -1,6 +1,5 @@
 package com.myriamcounilh.safetynetalerts.repository.impl;
 
-import com.myriamcounilh.safetynetalerts.endpoint.FirestationController;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.repository.IFirestationRepository;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +28,7 @@ public class FirestationRepository implements IFirestationRepository {
 
     @Override
     public Firestation getFirestation(Firestation firestation) {
-        logger.debug("Not Return getFirestation with getStation() and getAddress()");
+        logger.debug("Return getFirestation with getStation() and getAddress()");
         return getFirestation(firestation.getStation(), firestation.getAddress());
     }
 
@@ -43,7 +42,7 @@ public class FirestationRepository implements IFirestationRepository {
         }
         listStation.add(firestation.getAddress());
         this.firestationMap.put(firestation.getStation(), listStation);
-        logger.debug("Not Return addFirestation");
+        logger.debug("Return addFirestation");
         return firestation;
     }
 
@@ -58,10 +57,12 @@ public class FirestationRepository implements IFirestationRepository {
         if (firestationList == null) {
             return null;
         }
-        firestationList.remove(firestationFound.getAddress());
-        firestationList.add(firestation.getAddress());
-        logger.debug("Not Return modifyFirestation");
-        return firestation;
+        if (firestationList.remove(firestationFound.getAddress())) {
+            firestationList.add(firestation.getAddress());
+            logger.debug("Return modifyFirestation");
+            return firestation;
+        }
+        return null;
     }
 
     @Override
@@ -70,9 +71,11 @@ public class FirestationRepository implements IFirestationRepository {
         if (firestationList == null) {
             return null;
         }
-        firestationList.remove(firestationFound.getAddress());
-        logger.debug("Not Return firestationFound with deleteFirestation");
-        return firestationFound;
+        if (firestationList.remove(firestationFound.getAddress())) {
+            logger.debug("Return firestationFound with deleteFirestation");
+            return firestationFound;
+        }
+        return null;
     }
 
 }

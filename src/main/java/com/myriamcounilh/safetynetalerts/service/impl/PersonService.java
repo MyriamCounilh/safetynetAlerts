@@ -30,7 +30,7 @@ public class PersonService implements IPersonService {
         if (repository.getPerson(person) != null) {
             return null;
         }
-        logger.debug("Not Return addPerson");
+        logger.debug("Return addPerson");
         return repository.addPerson(person);
     }
 
@@ -39,7 +39,7 @@ public class PersonService implements IPersonService {
      */
     @Override
     public List<Person> getPerson() {
-        logger.debug("Not Return getPerson with List");
+        logger.debug("Return getPerson with List");
         return repository.getPerson();
     }
 
@@ -52,7 +52,7 @@ public class PersonService implements IPersonService {
         if (personFound == null) {
             return null;
         }
-        logger.debug("Not Return modifyPerson");
+        logger.debug("Return modifyPerson");
         return repository.modifyPerson(personFound, person);
     }
 
@@ -65,7 +65,7 @@ public class PersonService implements IPersonService {
         if (personFound == null) {
             return null;
         }
-        logger.debug("Not Return deletePerson with personFound");
+        logger.debug("Return deletePerson with personFound");
         return repository.deletePerson(personFound);
     }
 

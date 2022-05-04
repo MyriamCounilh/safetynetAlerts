@@ -31,7 +31,7 @@ public class FirestationService implements IFirestationService {
         if(repository.getFirestation(firestation) != null) {
             return null;
         }
-        logger.debug("Not Return addFirestation");
+        logger.debug("Return addFirestation");
         return repository.addFirestation(firestation);
     }
 
@@ -40,7 +40,7 @@ public class FirestationService implements IFirestationService {
      */
     @Override
     public Map<Integer, List<String>> getFirestation() {
-        logger.debug("Not Return getFirestation with Map");
+        logger.debug("Return getFirestation with Map");
         return repository.getFirestation();
     }
 
@@ -53,7 +53,7 @@ public class FirestationService implements IFirestationService {
         if (firestationFound == null) {
             return null;
         }
-        logger.debug("Not Return modifyFirestation with station and address");
+        logger.debug("Return modifyFirestation with station and address");
         return repository.modifyFirestation(firestationFound, firestation);
     }
 
@@ -66,7 +66,7 @@ public class FirestationService implements IFirestationService {
         if (firestationFound == null) {
             return null;
         }
-        logger.debug("Not Return deleteFirestation with firestationFound");
+        logger.debug("Return deleteFirestation with firestationFound");
         return repository.deleteFirestation(firestationFound);
     }
 

@@ -3,6 +3,8 @@ package com.myriamcounilh.safetynetalerts.service.impl;
 import com.myriamcounilh.safetynetalerts.model.Person;
 import com.myriamcounilh.safetynetalerts.repository.IPersonRepository;
 import com.myriamcounilh.safetynetalerts.service.IPersonService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class PersonService implements IPersonService {
+
+    private static final Logger logger = LogManager.getLogger(PersonService.class);
 
     private final IPersonRepository repository;
 
@@ -26,6 +30,7 @@ public class PersonService implements IPersonService {
         if (repository.getPerson(person) != null) {
             return null;
         }
+        logger.debug("Return addPerson");
         return repository.addPerson(person);
     }
 
@@ -34,6 +39,7 @@ public class PersonService implements IPersonService {
      */
     @Override
     public List<Person> getPerson() {
+        logger.debug("Return getPerson with List");
         return repository.getPerson();
     }
 
@@ -46,7 +52,8 @@ public class PersonService implements IPersonService {
         if (personFound == null) {
             return null;
         }
-       return repository.modifyPerson(personFound, person);
+        logger.debug("Return modifyPerson");
+        return repository.modifyPerson(personFound, person);
     }
 
     /**
@@ -58,6 +65,7 @@ public class PersonService implements IPersonService {
         if (personFound == null) {
             return null;
         }
+        logger.debug("Return deletePerson with personFound");
         return repository.deletePerson(personFound);
     }
 

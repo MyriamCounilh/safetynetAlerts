@@ -1,9 +1,9 @@
 package com.myriamcounilh.safetynetalerts.service;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.model.MedicalRecord;
 import com.myriamcounilh.safetynetalerts.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,17 @@ public class JsonReaderService {
 
     private final IPersonService personService;
     private final IMedicalRecordService medicalRecordService;
-
+    private final IFirestationService firestationService;
 
     private final static String PATH_TO_JSON_FILE = "data.json";
 
-    public JsonReaderService(@Autowired IPersonService personService, @Autowired IMedicalRecordService medicalRecordService) throws IOException {
+    @Autowired
+    public JsonReaderService(IPersonService personService,
+                             IMedicalRecordService medicalRecordService,
+                             IFirestationService firestationService) throws IOException {
         this.personService = personService;
         this.medicalRecordService = medicalRecordService;
+        this.firestationService = firestationService;
 
         /**
          * create object mapper instance
@@ -31,11 +35,7 @@ public class JsonReaderService {
         JsonNode node = mapper.readTree(JsonReaderService.class.getClassLoader().getResourceAsStream(PATH_TO_JSON_FILE));
         loadPersons(node, mapper);
         loadMedicalRecords(node, mapper);
-
-        /**
-         * TODO
-         * loadFirstation();
-         */
+        loadFirestations(node, mapper);
     }
 
     private void loadPersons(JsonNode nodeParent, ObjectMapper mapper) throws JsonProcessingException {
@@ -54,4 +54,11 @@ public class JsonReaderService {
         }
     }
 
+    private void loadFirestations(JsonNode nodeParent, ObjectMapper mapper) throws JsonProcessingException {
+        JsonNode nodeFirestations = nodeParent.get("firestations");
+        for (JsonNode nodeFirestation : nodeFirestations) {
+            Firestation firestation = mapper.readValue(nodeFirestation.toString(), Firestation.class);
+            firestationService.addFirestation(firestation);
+        }
+    }
 }

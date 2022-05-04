@@ -28,7 +28,7 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<List<Person>> getPerson() {
-        logger.info("Get Mapping it OK");
+        logger.info("Get Mapping for Person it OK");
         return new ResponseEntity<>(personService.getPerson(), HttpStatus.OK);
     }
 
@@ -36,7 +36,7 @@ public class PersonController {
     public ResponseEntity<Person> addPerson(@Valid @RequestBody Person person) {
         Person personCreated = personService.addPerson(person);
         if (personCreated != null ) {
-            logger.info("Post Mapping it OK");
+            logger.info("Post Mapping for Person it OK");
             return new ResponseEntity<>(personCreated, HttpStatus.OK);
         } else {
             logger.error("Post Mapping is error {}", person );
@@ -45,7 +45,7 @@ public class PersonController {
     }
 
     @PutMapping
-    public ResponseEntity<Person> modifyPerson(@RequestParam String firstName, String lastName, @Valid @RequestBody Person person) {
+    public ResponseEntity<Person> modifyPerson(@RequestParam String firstName, @RequestParam String lastName, @Valid @RequestBody Person person) {
         Person personModify = personService.modifyPerson(firstName, lastName, person);
         if (personModify != null) {
             logger.info("Put Mapping for modify Person OK");
@@ -57,13 +57,12 @@ public class PersonController {
     }
 
     @DeleteMapping
-    public void deletePerson(@RequestParam String firstName, String lastName) {
+    public void deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
         if (personService.deletePerson(firstName, lastName) != null) {
-            logger.info("Delete Mapping for supprime Person OK");
+            logger.info("Delete Mapping for delete Person OK");
         } else {
             logger.error("Delete Mapping is error {} - {}", firstName, lastName );
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not found");
         }
     }
-
 }

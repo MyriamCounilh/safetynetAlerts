@@ -10,9 +10,9 @@ public interface IPersonRepository {
 
     Person getPerson(Person person);
 
-    Person addPerson(Person person);
-
     List<Person> getPerson();
+
+    Person addPerson(Person person);
 
     Person modifyPerson(Person personFound, Person person);
 

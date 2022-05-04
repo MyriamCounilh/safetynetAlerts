@@ -13,16 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * TODO : http://localhost:8080/medicalRecord
- * Cet endpoint permettra d’effectuer les actions suivantes via Post/Put/Delete HTTP :
- * ● ajouter un dossier médical ;
- * ● mettre à jour un dossier médical existant (comme évoqué précédemment, supposer que le
- * prénom et le nom de famille ne changent pas) ;
- * ● supprimer un dossier médical (utilisez une combinaison de prénom et de nom comme
- * identificateur unique).
- */
-
 @RestController
 @RequestMapping("/medicalRecord")
 public class MedicalRecordController {
@@ -38,7 +28,7 @@ public class MedicalRecordController {
 
     @GetMapping
     public ResponseEntity<List<MedicalRecord>> getMedicalRecord() {
-        logger.info("Get Mapping it OK For MedicalRecord");
+        logger.info("Get Mapping it OK for MedicalRecord");
         return new ResponseEntity<>(medicalRecordService.getMedicalRecord(), HttpStatus.OK);
     }
 
@@ -55,7 +45,7 @@ public class MedicalRecordController {
     }
 
     @PutMapping
-    public ResponseEntity<MedicalRecord> modifyMedicalRecord(@RequestParam String firstName, String lastName, @Valid @RequestBody MedicalRecord medicalRecord) {
+    public ResponseEntity<MedicalRecord> modifyMedicalRecord(@RequestParam String firstName,@RequestParam String lastName, @Valid @RequestBody MedicalRecord medicalRecord) {
         MedicalRecord medicalRecordModify = medicalRecordService.modifyMedicalRecord(firstName, lastName, medicalRecord);
         if (medicalRecordModify != null) {
             logger.info("Put Mapping for modify medicalRecord OK");
@@ -67,9 +57,9 @@ public class MedicalRecordController {
     }
 
     @DeleteMapping
-    public void deleteMedicalRecord(@RequestParam String firstName, String lastName) {
+    public void deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName) {
         if (medicalRecordService.deleteMedicalRecord(firstName, lastName) != null) {
-            logger.info("Delete Mapping for supprime medicalRecord OK");
+            logger.info("Delete Mapping for delete medicalRecord OK");
         } else {
             logger.error("Delete Mapping is error {} - {}", firstName, lastName );
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "medicalRecord not found");

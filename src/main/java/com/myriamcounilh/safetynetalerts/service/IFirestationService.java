@@ -14,4 +14,5 @@ public interface IFirestationService {
     Firestation modifyFirestation(Integer station, String address, Firestation firestation);
 
     Firestation deleteFirestation(Integer station, String address);
+
 }

@@ -17,4 +17,6 @@ public interface IPersonRepository {
     Person modifyPerson(Person personFound, Person person);
 
     Person deletePerson(Person personFound);
+
+    List<String> getPerson(String city);
 }

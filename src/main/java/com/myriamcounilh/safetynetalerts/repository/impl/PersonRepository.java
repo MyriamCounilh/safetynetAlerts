@@ -46,6 +46,12 @@ public class PersonRepository implements IPersonRepository {
     }
 
     @Override
+    public List<String> getPerson(String city) {
+        logger.debug("Return getPerson with city");
+        return getPerson(city);
+    }
+
+    @Override
     public Person modifyPerson(Person personFound, Person person) {
         if (this.listPerson.remove(personFound)) {
             this.listPerson.add(person);
@@ -63,4 +69,5 @@ public class PersonRepository implements IPersonRepository {
         }
         return null;
     }
+
 }

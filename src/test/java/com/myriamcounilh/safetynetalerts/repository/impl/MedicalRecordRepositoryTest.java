@@ -11,14 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MedicalRecordRepositoryTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void when_get_medical_record_return_the_medical_record_then_the_list() {
         //Given

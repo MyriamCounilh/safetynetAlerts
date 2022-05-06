@@ -1,6 +1,5 @@
 package com.myriamcounilh.safetynetalerts.service.impl;
 
-import com.myriamcounilh.safetynetalerts.endpoint.FirestationController;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.repository.IFirestationRepository;
 import com.myriamcounilh.safetynetalerts.service.IFirestationService;

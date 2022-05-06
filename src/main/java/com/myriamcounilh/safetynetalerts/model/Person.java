@@ -20,7 +20,7 @@ public class Person {
 
     private String phone;
 
-    @Email(message = "incorret email")
+    @Email(message = "incorrect email")
     private String email;
 
     public Person() {

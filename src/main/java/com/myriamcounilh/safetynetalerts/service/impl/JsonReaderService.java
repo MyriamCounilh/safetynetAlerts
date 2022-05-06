@@ -1,4 +1,4 @@
-package com.myriamcounilh.safetynetalerts.service;
+package com.myriamcounilh.safetynetalerts.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,13 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 import com.myriamcounilh.safetynetalerts.model.MedicalRecord;
 import com.myriamcounilh.safetynetalerts.model.Person;
+import com.myriamcounilh.safetynetalerts.service.IFirestationService;
+import com.myriamcounilh.safetynetalerts.service.IMedicalRecordService;
+import com.myriamcounilh.safetynetalerts.service.IPersonService;
+import com.myriamcounilh.safetynetalerts.service.IReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
-public class JsonReaderService {
+public class JsonReaderService implements IReaderService {
 
     private final IPersonService personService;
     private final IMedicalRecordService medicalRecordService;

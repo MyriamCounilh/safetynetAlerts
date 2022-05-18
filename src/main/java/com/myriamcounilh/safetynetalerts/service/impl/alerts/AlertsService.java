@@ -8,9 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,37 +26,31 @@ public class AlertsService implements IAlertsService {
     }
 
     @Override
-    public List<String> getEmail(String city) {
-        List<String> emailOptional = personService.getPerson().stream()
+    public Set<String> getEmail(String city) {
+        Set<String> emailOptional = personService.getPerson().stream()
                 .filter(person -> person.getCity().equals(city))
                 .map(p -> p.getEmail())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         logger.debug("Return getEmail with listCity");
 
         return emailOptional;
     }
 
-    public List<String> getPhone(String address) {
-        List<String> phoneOptional = personService.getPerson().stream()
+    @Override
+    public Set<String> getPhone(Integer station) {
+        Set<String> listPhone = new HashSet<>();
+        firestationService.getFirestations().get(station).forEach(address -> listPhone.addAll(getPhone(address)));
+        return listPhone;
+    }
+
+    private Set<String> getPhone(String address) {
+        Set<String> phoneOptional = personService.getPerson().stream()
                 .filter(person -> person.getAddress().equals(address))
                 .map(p -> p.getPhone())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         logger.debug("Return getPhone with listPhone");
 
         return phoneOptional;
     }
-
-    @Override
-    public List<String> getPhoneAlert(Integer station) {
-        List<String> listPhone = new ArrayList<>();
-
-        firestationService.getFirestation().get(station).forEach(address -> listPhone.addAll(getPhone(address)));
-
-        return listPhone;
-    }
-
-
-
-
 
 }

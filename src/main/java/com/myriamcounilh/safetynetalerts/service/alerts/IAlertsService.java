@@ -1,9 +1,10 @@
 package com.myriamcounilh.safetynetalerts.service.alerts;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IAlertsService {
-    List<String> getEmail(String city);
 
-    List<String> getPhoneAlert(Integer station);
+    Set<String> getEmail(String city);
+
+    Set<String> getPhone(Integer station);
 }

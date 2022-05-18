@@ -5,10 +5,9 @@ import com.myriamcounilh.safetynetalerts.repository.impl.PersonRepository;
 import com.myriamcounilh.safetynetalerts.service.impl.PersonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PersonControllerTest {
 

@@ -18,3 +18,6 @@ Repository : interaction avec les sources de données externes.
 - mvn site = pour lancer mon rapport de test (Jacoco et surefire report)
 - mvn spring-boot:run = afin de lancer l'application
 
+### Postman
+
+*Utilisation de postman afin de tester les différentes URL*

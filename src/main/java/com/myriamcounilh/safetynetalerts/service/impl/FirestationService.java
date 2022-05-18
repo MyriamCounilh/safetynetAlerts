@@ -38,7 +38,7 @@ public class FirestationService implements IFirestationService {
      * Get
      */
     @Override
-    public Map<Integer, List<String>> getFirestation() {
+    public Map<Integer, List<String>> getFirestations() {
         logger.debug("Return getFirestation with Map");
         return repository.getFirestation();
     }
@@ -56,8 +56,9 @@ public class FirestationService implements IFirestationService {
         return repository.modifyFirestation(firestationFound, firestation);
     }
 
+
     /**
-     * DELETE
+     * Delete
      */
     @Override
     public Firestation deleteFirestation(Integer station, String address) {

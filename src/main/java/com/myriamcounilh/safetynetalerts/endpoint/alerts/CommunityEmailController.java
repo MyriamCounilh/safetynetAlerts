@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/communityEmail")
@@ -27,8 +28,9 @@ public class CommunityEmailController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> getCommunityEmail(@RequestParam String city) {
+    public ResponseEntity<Set<String>> getCommunityEmail(@RequestParam String city) {
         logger.info("Get Mapping for community email it's OK");
         return new ResponseEntity<>(alertsService.getEmail(city), HttpStatus.OK);
     }
+
 }

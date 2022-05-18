@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/phoneAlert")
@@ -27,8 +27,8 @@ public class PhoneAlertController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> getPhoneAlert(@RequestParam Integer firestation) {
+    public ResponseEntity<Set<String>> getPhoneAlert(@RequestParam Integer firestation) {
         logger.info("Get Mapping for phone alert it's OK");
-        return new ResponseEntity<>(alertsService.getPhoneAlert(firestation), HttpStatus.OK);
+        return new ResponseEntity<>(alertsService.getPhone(firestation), HttpStatus.OK);
     }
 }

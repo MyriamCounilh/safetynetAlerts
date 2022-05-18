@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface IFirestationService {
 
-    Map<Integer, List<String>> getFirestation();
+    Map<Integer, List<String>> getFirestations();
 
     Firestation addFirestation(Firestation firestation);
 

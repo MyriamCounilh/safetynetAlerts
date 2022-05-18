@@ -17,7 +17,8 @@ public class FirestationRepository implements IFirestationRepository {
 
     @Override
     public Firestation getFirestation(Integer station, String address) {
-        List<String> firestationList = firestationMap.get(station);
+        List<String> firestationList = firestationMap.get(station); //récupérer toutes les adresses dans une liste d'adresse
+
 
         if (firestationList == null || !firestationList.contains(address)) {
             return null;
@@ -26,10 +27,26 @@ public class FirestationRepository implements IFirestationRepository {
         return new Firestation(station, address);
     }
 
+//    @Override
+    public Set<Firestation> getFirestations(Integer station, String address) {
+        List<String> firestationList = firestationMap.get(station); //récupérer toutes les adresses dans une liste d'adresse
+
+//        firestationService.getFirestation().get(station).forEach(address -> listPhone.addAll(getPhone(address)));
+//        return listPhone;
+
+        return null;
+    }
+
+
     @Override
     public Firestation getFirestation(Firestation firestation) {
         logger.debug("Return getFirestation with getStation() and getAddress()");
         return getFirestation(firestation.getStation(), firestation.getAddress());
+    }
+
+    @Override
+    public Map<Integer, List<String>> getFirestation() {
+        return firestationMap;
     }
 
     @Override
@@ -44,11 +61,6 @@ public class FirestationRepository implements IFirestationRepository {
         this.firestationMap.put(firestation.getStation(), listStation);
         logger.debug("Return addFirestation");
         return firestation;
-    }
-
-    @Override
-    public Map<Integer, List<String>> getFirestation() {
-        return firestationMap;
     }
 
     @Override

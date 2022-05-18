@@ -1,0 +1,78 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+skinparam class {
+BackgroundColor Wheat
+ArrowColor SeaGreen
+BorderColor Grey
+}
+skinparam stereotypeCBackgroundColor Grey
+
+class PersonController
+PersonController --> IPersonService
+IPersonService --[dashed]> PersonService
+PersonService --> IPersonRepository
+IPersonRepository --[dashed]> PersonRepository
+
+class FirestationController
+FirestationController --> IFirestationService
+IFirestationService --[dashed]> FirestationService
+FirestationService --> IFirestationRepository
+IFirestationRepository --[dashed]> FirestationRepository
+
+class MedicalRecordController
+MedicalRecordController --> IMedicalRecordService
+IMedicalRecordService --[dashed]> MedicalRecordService
+MedicalRecordService --> IMedicalRecordRepository
+IMedicalRecordRepository --[dashed]> MedicalRecordRepository
+
+class CommunityEmailController
+CommunityEmailController -down-> IAlertsService
+
+class PhoneAlertController
+PhoneAlertController -down-> IAlertsService
+
+class ChildAlertController
+ChildAlertController -down-> IAlertsService
+
+class FireAdressController
+FireAdressController -up-> IAlertsService
+
+class FirestationStationNumberController
+FirestationStationNumberController -up-> IAlertsService
+
+class Flood
+Flood -up-> IAlertsService
+
+class PersonInfo
+PersonInfo -right-> IAlertsService
+
+class IAlertsService
+IAlertsService -[dashed]right-> AlertsService
+
+class JsonReaderService
+'IReaderService <|- JsonReaderService
+JsonReaderService -right-> PersonRepository
+JsonReaderService -left-> FirestationRepository
+JsonReaderService -up-> MedicalRecordRepository
+
+interface IFirestationRepository
+interface IMedicalRecordRepository
+interface IPersonRepository
+
+class FirestationRepository
+class MedicalRecordRepository
+class PersonRepository
+
+interface IFirestationService
+interface IMedicalRecordService
+interface IPersonService
+interface IAlertsService
+'interface IReaderService
+
+class FirestationService
+class MedicalRecordService
+class PersonService
+class JsonReaderService
+
+@enduml

@@ -30,7 +30,7 @@ public class FirestationController {
     @GetMapping
     public  ResponseEntity<Map<Integer, List<String>>> getFirestation() {
         logger.info("Get Mapping for firestation it OK");
-        return new ResponseEntity<>(firestationService.getFirestation(), HttpStatus.OK);
+        return new ResponseEntity<>(firestationService.getFirestations(), HttpStatus.OK);
     }
 
     @PostMapping

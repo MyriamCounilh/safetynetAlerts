@@ -13,30 +13,18 @@ public class FirestationRepository implements IFirestationRepository {
 
     private static final Logger logger = LogManager.getLogger(FirestationRepository.class);
 
-    private final Map<Integer, List<String>> firestationMap = new HashMap<>();
+    private List<Firestation> listFirestation = new ArrayList<>();
 
     @Override
     public Firestation getFirestation(Integer station, String address) {
-        List<String> firestationList = firestationMap.get(station); //récupérer toutes les adresses dans une liste d'adresse
-
-
-        if (firestationList == null || !firestationList.contains(address)) {
-            return null;
-        }
+        Optional<Firestation> result = this.listFirestation.stream().filter(fire -> fire.getAddress().equals(address) && fire.getStation().equals(station))
+                        .findFirst();
         logger.debug("Return firestationList with station and address");
-        return new Firestation(station, address);
+        if (result.isPresent()) {
+            return result.get();
+        }
+        else return null;
     }
-
-//    @Override
-    public Set<Firestation> getFirestations(Integer station, String address) {
-        List<String> firestationList = firestationMap.get(station); //récupérer toutes les adresses dans une liste d'adresse
-
-//        firestationService.getFirestation().get(station).forEach(address -> listPhone.addAll(getPhone(address)));
-//        return listPhone;
-
-        return null;
-    }
-
 
     @Override
     public Firestation getFirestation(Firestation firestation) {
@@ -45,32 +33,21 @@ public class FirestationRepository implements IFirestationRepository {
     }
 
     @Override
-    public Map<Integer, List<String>> getFirestation() {
-        return firestationMap;
+    public List<Firestation> getFirestation() {
+        return listFirestation;
     }
 
     @Override
     public Firestation addFirestation(Firestation firestation) {
-        List<String> listStation;
-        if(firestationMap.containsKey(firestation.getStation()) ) {
-            listStation = firestationMap.get(firestation.getStation());
-        } else {
-            listStation = new ArrayList<>();
-        }
-        listStation.add(firestation.getAddress());
-        this.firestationMap.put(firestation.getStation(), listStation);
+        this.listFirestation.add(firestation);
         logger.debug("Return addFirestation");
         return firestation;
     }
 
     @Override
     public Firestation modifyFirestation(Firestation firestationFound, Firestation firestation) {
-        List<String> firestationList = firestationMap.get(firestationFound.getStation());
-        if (firestationList == null) {
-            return null;
-        }
-        if (firestationList.remove(firestationFound.getAddress())) {
-            firestationList.add(firestation.getAddress());
+        if (this.listFirestation.remove(firestationFound)) {
+            this.listFirestation.add(firestation);
             logger.debug("Return modifyFirestation");
             return firestation;
         }
@@ -79,15 +56,10 @@ public class FirestationRepository implements IFirestationRepository {
 
     @Override
     public Firestation deleteFirestation(Firestation firestationFound) {
-        List<String> firestationList = firestationMap.get(firestationFound.getStation());
-        if (firestationList == null) {
-            return null;
-        }
-        if (firestationList.remove(firestationFound.getAddress())) {
-            logger.debug("Return firestationFound with deleteFirestation");
+        if (this.listFirestation.remove(firestationFound)) {
+            logger.debug("Return deleteFirestation with modifyFirestation");
             return firestationFound;
         }
         return null;
     }
-
 }

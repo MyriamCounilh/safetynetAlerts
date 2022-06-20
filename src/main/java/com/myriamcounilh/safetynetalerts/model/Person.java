@@ -2,7 +2,6 @@ package com.myriamcounilh.safetynetalerts.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 public class Person {
 
@@ -24,7 +23,6 @@ public class Person {
     private String email;
 
     public Person() {
-
     }
 
     public Person(String firstName, String lastName) {
@@ -88,24 +86,5 @@ public class Person {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return firstName.equals(person.firstName) && lastName.equals(person.lastName);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
-    @Override
-    public String toString() {
-        return "Person {" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 }

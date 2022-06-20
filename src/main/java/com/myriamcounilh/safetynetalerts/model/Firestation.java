@@ -33,17 +33,4 @@ public class Firestation {
     public void setStation(Integer station) {
         this.station = station;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Firestation that = (Firestation) o;
-        return address.equals(that.address) && station.equals(that.station);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(address, station);
-    }
 }

@@ -19,4 +19,6 @@ public interface IPersonRepository {
     Person deletePerson(Person personFound);
 
     List<String> getPerson(String city);
+
+    List<Person> getFamilyMembers(String address, String lastname);
 }

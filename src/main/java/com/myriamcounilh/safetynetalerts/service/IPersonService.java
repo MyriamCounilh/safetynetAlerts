@@ -13,4 +13,8 @@ public interface IPersonService {
     Person modifyPerson(String firstName, String lastName, Person person);
 
     Person deletePerson(String firstName, String lastName);
+
+    List<Person> getPersonByAdress(String address);
+
+    List<Person> getFamilyMember(String address, String lastname);
 }

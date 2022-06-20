@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class FirestationService implements IFirestationService {
@@ -38,7 +37,7 @@ public class FirestationService implements IFirestationService {
      * Get
      */
     @Override
-    public Map<Integer, List<String>> getFirestations() {
+    public List<Firestation> getFirestations() {
         logger.debug("Return getFirestation with Map");
         return repository.getFirestation();
     }

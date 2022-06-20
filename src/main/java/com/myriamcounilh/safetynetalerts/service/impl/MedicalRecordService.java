@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,6 +68,16 @@ public class MedicalRecordService implements IMedicalRecordService {
         }
         logger.debug("Return deleteMedicalRecord with firstName and lastName");
         return repository.deleteMedicalRecord(medicalRecordFound);
+    }
+
+    @Override
+    public MedicalRecord getMedicalByFirstnameAndLastName(String firstName, String lastName) {
+        return repository.getMedicalRecord(firstName, lastName);
+    }
+
+    @Override
+    public Date getBirthdate() {
+        return null;
     }
 
 }

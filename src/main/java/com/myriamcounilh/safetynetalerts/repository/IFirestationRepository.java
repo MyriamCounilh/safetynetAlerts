@@ -3,7 +3,6 @@ package com.myriamcounilh.safetynetalerts.repository;
 import com.myriamcounilh.safetynetalerts.model.Firestation;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IFirestationRepository {
 
@@ -11,7 +10,7 @@ public interface IFirestationRepository {
 
     Firestation getFirestation(Firestation firestation);
 
-    Map<Integer, List<String>> getFirestation();
+    List<Firestation> getFirestation();
 
     Firestation addFirestation(Firestation firestation);
 

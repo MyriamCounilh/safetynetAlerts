@@ -1,27 +1,49 @@
 package com.myriamcounilh.safetynetalerts.endpoint;
 
 import com.myriamcounilh.safetynetalerts.model.Person;
-import com.myriamcounilh.safetynetalerts.repository.impl.PersonRepository;
-import com.myriamcounilh.safetynetalerts.service.impl.PersonService;
+import com.myriamcounilh.safetynetalerts.service.IPersonService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@ExtendWith(MockitoExtension.class)
 class PersonControllerTest {
+
+    //My mock
+    @Mock
+    private IPersonService personService;
+
+    //class to be tested
+    private PersonController personController;
+
+    @BeforeEach
+    void setUp() {
+        personController = new PersonController(personService);
+    }
 
     @Test
     void when_get_person_return_person_of_list() {
         //Given
-        Person personTest = new Person("Riri", "Blanc");
+        Person personTest = new Person();
+        personTest.setFirstName("Riri");
+        personTest.setLastName("BLANC");
+        List<Person> persons = new ArrayList<>();
+        persons.add(personTest);
+        Mockito.when(personService.getPerson()).thenReturn(persons);
 
         //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personTest);
+        List<Person> listPerson = personController.getPerson().getBody();
 
         //Then
-        List<Person> listPerson = personController.getPerson().getBody();
         assertNotNull(listPerson);
         assertTrue(listPerson.contains(personTest));
     }
@@ -29,86 +51,109 @@ class PersonControllerTest {
     @Test
     void when_add_person_return_this_person() {
         //Given
-        Person personTest = new Person("Luc", "Blanc");
+        Person personTest = new Person();
+        personTest.setFirstName("David");
+        personTest.setLastName("BLANC");
+
+        List<Person> persons = new ArrayList<>();
+        persons.add(personTest);
+
+        Mockito.when(personService.getPerson()).thenReturn(persons);
 
         //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
+        List<Person> listPerson = personController.getPerson().getBody();
 
         //Then
-        assertEquals(personTest, personController.addPerson(personTest).getBody());
+        assertNotNull(listPerson);
+        assertTrue(listPerson.contains(personTest));
     }
 
     @Test
     void when_add_not_person_not_existing() {
         //Given
-        Person personNotTest = new Person("David", "Blanc");
+        Person personExisting = new Person();
+        personExisting.setFirstName("David");
+        personExisting.setLastName("Blanc");
+
+        Person personNotExisting = new Person();
+        personNotExisting.setFirstName("Luc");
+        personNotExisting.setLastName("Noir");
+
+        List<Person> persons = new ArrayList<>();
+
+        persons.add(personExisting);
+        Mockito.when(personService.getPerson()).thenReturn(persons);
 
         //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personNotTest);
+        List<Person> listPerson = personController.getPerson().getBody();
 
         //Then
-        assertThrows(ResponseStatusException.class, () -> personController.addPerson(personNotTest));
+        assertNotNull(listPerson);
+        assertTrue(listPerson.contains(personExisting));
+        assertThrows(ResponseStatusException.class, () -> personController.addPerson(personNotExisting));
     }
 
     @Test
     void when_modify_person_return_person_modify() {
         //Given
-        Person personModifyTest = new Person("Jean", "Brun");
-        Person personNewNameTest = new Person("Dupont", "Jean");
+        Person personModifyTrue = new Person();
+        personModifyTrue.setFirstName("Dupont");
+        personModifyTrue.setLastName("Jean");
+
+        Mockito.when(personService.modifyPerson("Jean", "Brun", personModifyTrue)).thenReturn(personModifyTrue);
 
         //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personModifyTest);
-        personController.modifyPerson("Jean", "Brun", personNewNameTest);
+        personController.modifyPerson("Jean", "Brun", personModifyTrue).getBody();
 
         //Then
-        List<Person> listPerson = personController.getPerson().getBody();
-        assertNotNull(listPerson);
-        assertTrue(listPerson.contains(personNewNameTest));
-        assertFalse(listPerson.contains(personModifyTest));
+        assertNotNull(personModifyTrue);
+        assertEquals("Dupont", personModifyTrue.getFirstName());
+        assertEquals("Jean", personModifyTrue.getLastName());
+
     }
 
     @Test
     void when_modify_person_return_exception_person_not_existing() {
         //Given
-        Person personNotModifyTest = new Person("Jean", "Brun");
-        Person personNewNameTest = new Person("Dupont", "Jean");
+        Person personNotModify = new Person();
+        personNotModify.setFirstName("Dupont");
+        personNotModify.setLastName("Jean");
 
-        //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personNotModifyTest);
-        personController.modifyPerson("Jean", "Brun", personNewNameTest);
+        Mockito.when(personService.modifyPerson("Jean", "Brun", personNotModify)).thenReturn(null);
 
-        //Then
-        assertThrows(ResponseStatusException.class, () -> personController.modifyPerson("Jean", "Brun", personNotModifyTest));
+        //When and Then
+        assertThrows(ResponseStatusException.class, () -> personController.modifyPerson("Jean", "Brun", personNotModify));
+
     }
-
 
     @Test
     void when_delete_person() {
         //Given
-        Person personDeleteTest = new Person("Paul", "Belmondo");
+        Person personDeleteExisting = new Person();
+        personDeleteExisting.setFirstName("Paul");
+        personDeleteExisting.setLastName("Belmondo");
+
+        Mockito.when(personService.deletePerson("Paul", "Belmondo")).thenReturn(personDeleteExisting);
 
         //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personDeleteTest);
         personController.deletePerson("Paul", "Belmondo");
 
         //Then
-        assertThrows(ResponseStatusException.class, () -> personController.deletePerson("Paul", "Belmondo"));
+        assertNotNull(personDeleteExisting);
+        assertEquals("Paul", personDeleteExisting.getFirstName());
+        assertEquals("Belmondo", personDeleteExisting.getLastName());
     }
 
     @Test
     void When_delete_person_return_not_existing() {
         //Given
-        Person personDeleteTest = new Person("Pascal", "Dupont");
+        Person personDeleteNotExisting = new Person();
+        personDeleteNotExisting.setFirstName("Julie");
+        personDeleteNotExisting.setLastName("Dupont");
 
-        //When
-        PersonController personController = new PersonController(new PersonService(new PersonRepository()));
-        personController.addPerson(personDeleteTest);
+        Mockito.when(personService.deletePerson("Pascal", "Dupont")).thenReturn(null);
 
-        //Then
-        assertThrows(ResponseStatusException.class, () -> personController.deletePerson("Pascale", "Dupont"));
+        //When and Then
+        assertThrows(ResponseStatusException.class, () -> personController.deletePerson("Pascal", "Dupont"));
     }
 }

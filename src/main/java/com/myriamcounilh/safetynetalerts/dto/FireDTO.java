@@ -1,6 +1,19 @@
-package com.myriamcounilh.safetynetalerts.endpoint.alerts;
+package com.myriamcounilh.safetynetalerts.dto;
 
-public class FirestationStationNumberController {
+import com.myriamcounilh.safetynetalerts.model.Person;
+
+import java.util.List;
+
+public class FireDTO {
+
+    private String address;
+
+    private Integer station;
+
+    private Integer nbOfChildren;
+
+    private Integer nbOfAdults;
+
 
     /***
      * TODO

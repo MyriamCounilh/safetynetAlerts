@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class PersonRepository implements IPersonRepository {
@@ -49,6 +50,11 @@ public class PersonRepository implements IPersonRepository {
     public List<String> getPerson(String city) {
         logger.debug("Return getPerson with city");
         return getPerson(city);
+    }
+
+    @Override
+    public List<Person> getFamilyMembers(String address, String lastname) {
+        return this.listPerson.stream().filter(person -> person.getAddress().equals(address) && person.getLastName().equals(lastname)).collect(Collectors.toList());
     }
 
     @Override

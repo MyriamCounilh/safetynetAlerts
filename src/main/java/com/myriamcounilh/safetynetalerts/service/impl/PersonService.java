@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService implements IPersonService {
@@ -67,6 +68,18 @@ public class PersonService implements IPersonService {
         }
         logger.debug("Return deletePerson with personFound");
         return repository.deletePerson(personFound);
+    }
+
+    @Override
+    public List<Person> getPersonByAdress(String address) {
+        List<Person> listAllPersons = repository.getPerson();
+        List<Person> listPersonByAdress = listAllPersons.stream().filter(person -> person.getAddress().equals(address)).collect(Collectors.toList());
+        return listPersonByAdress;
+    }
+
+    @Override
+    public List<Person> getFamilyMember(String address, String lastname) {
+        return repository.getFamilyMembers(address, lastname);
     }
 
 }

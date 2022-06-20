@@ -1,8 +1,6 @@
 package com.myriamcounilh.safetynetalerts.repository.impl;
 
 import com.myriamcounilh.safetynetalerts.model.MedicalRecord;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MedicalRecordRepositoryTest {
 
     @Test
-    void when_get_medical_record_return_the_medical_record_then_the_list() {
+    void when_add_medical_record_return_the_medical_record_then_the_list() {
         //Given
         MedicalRecord medicalRecordTest = new MedicalRecord();
 
@@ -94,7 +92,7 @@ class MedicalRecordRepositoryTest {
     }
 
     @Test
-    void when_delete_medical_record_return_() {
+    void when_delete_medical_record() {
         //Given
         MedicalRecord medicalRecordDeleteTest = new MedicalRecord("Pierre", "Dupont");
 
